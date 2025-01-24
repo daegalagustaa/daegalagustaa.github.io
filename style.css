@@ -1,0 +1,495 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --highlight-color: #FFA500;
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --grid-color: rgba(255, 255, 255, 0.1);
+    --glow-color: rgba(255, 165, 0, 0.25);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+}
+
+.grid-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 1;
+    transform: translateZ(-1px) scale(2);
+    transform-origin: center;
+    perspective: 1000px;
+}
+
+main {
+    padding: 2rem;
+    max-width: 800px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.name {
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    animation: fadeInDown 1s ease-out;
+}
+
+.highlight {
+    color: var(--highlight-color);
+}
+
+.title {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+
+.skills {
+    margin: 2rem 0;
+}
+
+.skills h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-top: 1rem;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.3s;
+}
+
+.skill-tag {
+    background-color: rgba(255, 165, 0, 0.2);
+    color: var(--highlight-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+}
+
+.skill-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--highlight-color);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: -1;
+}
+
+.skill-tag:hover {
+    color: var(--bg-color);
+}
+
+.skill-tag:hover::before {
+    transform: translateX(0);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.6s;
+}
+
+.social-icon {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: none;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+}
+
+.social-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--highlight-color);
+    bottom: -5px;
+    left: 0;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover::after {
+    transform: scaleX(1);
+}
+
+.contact {
+    margin-top: 2rem;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.9s;
+}
+
+.email {
+    color: var(--text-color);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+    cursor: none;
+}
+
+.email:hover {
+    color: var(--highlight-color);
+}
+
+@media (max-width: 768px) {
+    .name {
+        font-size: 2.5rem;
+    }
+
+    .title {
+        font-size: 1.2rem;
+    }
+
+    .skill-tags {
+        gap: 0.5rem;
+    }
+
+    .skill-tag {
+        font-size: 0.8rem;
+    }
+}
+
+/* Efek lampu cursor */
+.cursor-glow {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(
+        circle,
+        var(--glow-color) 0%,
+        rgba(255, 165, 0, 0.15) 30%,
+        transparent 70%
+    );
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    transition: all 0.3s ease;
+    mix-blend-mode: screen;
+    animation: pulse 2s infinite;
+}
+
+/* Tambahkan hover effect untuk link */
+a:hover ~ .cursor-glow {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(
+        circle,
+        rgba(255, 165, 0, 0.4) 0%,
+        rgba(255, 165, 0, 0.2) 50%,
+        transparent 80%
+    );
+    animation: none;
+}
+
+/* Tambahkan animasi */
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Animasi untuk nama */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animasi untuk social icons */
+.social-icon {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+}
+
+.social-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--highlight-color);
+    bottom: -5px;
+    left: 0;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover::after {
+    transform: scaleX(1);
+}
+
+/* Tambahkan script ini di akhir body sebelum closing tag </body> */
+
+/* Style untuk text selection */
+::selection {
+    background-color: var(--highlight-color);
+    color: var(--bg-color);
+}
+
+/* Untuk browser Firefox */
+::-moz-selection {
+    background-color: var(--highlight-color);
+    color: var(--bg-color);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: 2px solid var(--highlight-color);
+    color: var(--highlight-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: none;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.theme-toggle:hover {
+    background: var(--highlight-color);
+    color: var(--bg-color);
+}
+
+/* Tambahkan variabel untuk light mode */
+[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --grid-color: rgba(0, 0, 0, 0.1);
+    --glow-color: rgba(255, 165, 0, 0.2);
+}
+
+.projects {
+    margin: 3rem 0;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.6s;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.project-card {
+    background: rgba(255, 165, 0, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.2);
+}
+
+.project-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.project-tag {
+    background: var(--highlight-color);
+    color: var(--bg-color);
+    padding: 0.2rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.project-link {
+    color: var(--highlight-color);
+    text-decoration: none;
+    font-weight: bold;
+    cursor: none;
+}
+
+/* Update style untuk semua elemen yang bisa di-hover */
+a, 
+.skill-tag, 
+.theme-toggle, 
+.project-link,
+.email {
+    cursor: none;
+}
+
+/* Pastikan semua elemen yang bisa diinteraksi juga menggunakan cursor: none */
+button,
+input,
+select,
+textarea {
+    cursor: none;
+}
+
+/* Update cursor glow untuk menggunakan variabel warna */
+.cursor-glow {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(
+        circle,
+        var(--glow-color) 0%,
+        rgba(255, 165, 0, 0.15) 30%,
+        transparent 70%
+    );
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    transition: all 0.3s ease;
+    mix-blend-mode: screen;
+    animation: pulse 2s infinite;
+}
+
+/* Update hover effect untuk light mode */
+[data-theme="light"] .cursor-glow {
+    mix-blend-mode: multiply;
+}
+
+[data-theme="light"] a:hover ~ .cursor-glow {
+    background: radial-gradient(
+        circle,
+        rgba(255, 165, 0, 0.3) 0%,
+        rgba(255, 165, 0, 0.15) 50%,
+        transparent 80%
+    );
+}
+
+/* Tambahkan styles untuk info container */
+.info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.info-line {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    min-width: 320px; /* Menyesuaikan lebar minimum */
+}
+
+.info-line span:first-child {
+    text-align: right;
+    width: 100px; /* Lebar tetap untuk label */
+}
+
+.info-line .separator {
+    width: 20px;
+    text-align: center;
+}
+
+.info-line span:last-child {
+    text-align: left;
+    width: 200px; /* Lebar tetap untuk value */
+}
+
+.stikom {
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .info-container {
+        font-size: 1.2rem;
+    }
+    
+    .info-line {
+        min-width: 280px;
+    }
+    
+    .info-line span:first-child {
+        width: 80px;
+    }
+    
+    .info-line span:last-child {
+        width: 180px;
+    }
+} 

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kadek Daegal </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="cursor-glow"></div>
+    <main>
+        <h1 class="name">Kadek <span class="highlight">Daegal Agusta</span></h1>
+        <div class="info-container">
+            <div class="info-line">
+                <span>NIM</span>
+                <span class="separator">:</span>
+                <span>230030455</span>
+            </div>
+            <div class="info-line">
+                <span>Jurusan</span>
+                <span class="separator">:</span>
+                <span>Sistem Informasi</span>
+            </div>
+            <div class="info-line stikom">ITB STIKOM BALI</div>
+        </div>
+        <div class="skills">
+            <h2>Skills</h2>
+            <div class="skill-tags">
+                <span class="skill-tag">HTML</span>
+                <span class="skill-tag">PHP</span>
+                <span class="skill-tag">CSS</span>
+                <span class="skill-tag">Git</span>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="https://github.com/daegalagustaa" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/daegalagustaa" class="social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <div class="contact">
+            <a href="mailto:daegalagusta79@gmail.com" class="email">
+                <i class="fas fa-envelope"></i> daegalagusta79@gmail.com
+            </a>
+        </div>
+
+        <button class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </main>
+
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.querySelector('.cursor-glow');
+            const customCursor = document.querySelector('.custom-cursor');
+            
+            // Smooth animation untuk cursor glow
+            requestAnimationFrame(() => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+        });
+
+        // Update custom cursor dengan class untuk styling
+        const customCursor = document.createElement('div');
+        customCursor.className = 'custom-cursor';
+        document.body.appendChild(customCursor);
+
+        // Smooth animation untuk custom cursor
+        let cursorX = 0;
+        let cursorY = 0;
+        let currentX = 0;
+        let currentY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            cursorX = e.clientX;
+            cursorY = e.clientY;
+        });
+
+        function animate() {
+            const ease = 0.2;
+            
+            currentX += (cursorX - currentX) * ease;
+            currentY += (cursorY - currentY) * ease;
+            
+            customCursor.style.left = currentX + 'px';
+            customCursor.style.top = currentY + 'px';
+            
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Tambahkan efek hover untuk links
+        document.querySelectorAll('a, .skill-tag').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                customCursor.style.backgroundColor = 'var(--highlight-color)';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                customCursor.style.backgroundColor = 'var(--highlight-color)';
+            });
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+        let isDark = true;
+
+        themeToggle.addEventListener('click', () => {
+            isDark = !isDark;
+            if (isDark) {
+                body.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                document.querySelector('.cursor-glow').style.mixBlendMode = 'screen';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                document.querySelector('.cursor-glow').style.mixBlendMode = 'multiply';
+            }
+        });
+
+        // Tambahkan hover effect untuk theme toggle button
+        themeToggle.addEventListener('mouseenter', () => {
+            customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            customCursor.style.backgroundColor = 'var(--highlight-color)';
+        });
+
+        themeToggle.addEventListener('mouseleave', () => {
+            customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            customCursor.style.backgroundColor = 'var(--highlight-color)';
+        });
+    </script>
+
+    <style>
+        .custom-cursor {
+            width: 8px;
+            height: 8px;
+            background: var(--highlight-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.01s ease, background-color 0.01s ease;
+            mix-blend-mode: difference;
+        }
+    </style>
+</body>
+</html> 
